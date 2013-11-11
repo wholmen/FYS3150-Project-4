@@ -1,0 +1,4 @@
+from pylab import *
+
+infile = open('ForwardEuler.txt','r')
+print len(infile)

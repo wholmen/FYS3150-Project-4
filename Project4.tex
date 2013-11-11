@@ -1,0 +1,86 @@
+\documentclass[a4paper, 12pt, titlepage]{article}
+
+%
+% Importering av pakker
+%
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc, url}
+%\usepackage{babel}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Layout
+%
+\topmargin = -40pt
+\oddsidemargin = -15pt
+\textheight = 650pt
+\textwidth = 460pt
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation*}}
+\newcommand{\eeq}{\end{equation*}}
+\newcommand{\bt}[1]{\textbf{#1}}
+\newcommand{\n}{\newline}
+%
+% Navn og tittel
+%
+\author{Fredrik WIlhelm Holmen}
+\title{Project 4}
+\title{FYS3150}
+
+\begin{document}
+  \maketitle
+  \newpage
+
+  \section*{Algorithms}
+    I will use three different schemes to solve the diffusion equation. First I have implemented
+    the explicit scheme, then the implicit scheme, and at last I will use Crank-Nicolson.
+    \par 
+    {\bf The explicit scheme} \par
+      The Explicit scheme is a very straight-forward coding of the following equation. 
+			\beq
+			v_{i,j+1} = \alpha v_{i-1,j} + (1-2\alpha)v_{i,j} + \alpha v_{i+1,j}
+			\eeq
+      where \beq \alpha = \f{\Delta t}{\Delta x^2} \eeq    
+      and the error going as \beq O(\Delta t, \Delta x^2) \eeq
+      One can see that without boundary and initial conditions, this equation is unsolvable, but
+      since we have the conditions given, we do not need to compute for $j=0$ and $i=0$ or $i=j$.
+      \beq \text{boundary conditions: } v(0) = v(L) = 0 \eeq 
+      
+      To set up the initial state, v(x,0), v(0,0) and v(L,0), one must look at the definition of the 
+      function $v(x)$: 
+      \beq v(x) = u(x) + u_s(x) \eeq 
+      where \beq u_s(x) = 1-x \eeq
+      
+    
+    {\bf The Implicit scheme} \par
+      The implicit scheme is obtained by using the backward formula for the first derivative. This will
+      result in the matrix-vector multiplication: \beq Av_j = v_{j-1} \eeq where A is a tridiagonal matrix
+      with off-diagonal elements $-\alpha$ and diagonal elements $1+2\alpha$\par
+      I solve this equation by using the solver from project 1 by setting $v_0$ by the initial conditions 
+      and the boundary conditions. Then I solve the equation $N_t$ times to . \par
+    {\bf The Crank-Nicolson scheme}
+
+
+\end{document}
