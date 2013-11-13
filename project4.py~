@@ -1,0 +1,31 @@
+from pylab import *
+import glob, os, shutil
+
+#os.chdir("build-project4-Desktop-Debug")
+
+infile = open('ForwardEuler.txt','r')
+
+subdir = 'tempFE'
+if os.path.isdir(subdir):
+    shutil.rmtree(subdir)
+os.mkdir(subdir)
+os.chdir(subdir)
+
+counter = 0
+for line in infile:
+    splitline = line.split()
+    x = zeros(len(splitline))
+    for i in range(len(splitline)):
+        x[i] = float(splitline[i])
+    plot(x)
+    savefig("tmp%04d.png"%counter)
+    counter += 1
+    #time.sleep(0.2)
+
+#movie('tmp*.png')
+os.chdir(os.pardir)
+
+
+
+#for filename in glob.glob('tmp*.png'):
+#    os.remove(filename)
